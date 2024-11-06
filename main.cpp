@@ -12,9 +12,11 @@ int main(){
 	const char image4[] = "/home/daniel/Desktop/path/photo4.png";
 	const char image5[] = "/home/daniel/Desktop/path/photo5.png";
 	const char image6[] = "/home/daniel/Desktop/path/photo6.png";
+	bool startButtonState = false;
 
-
-	Rectangle baseScreen = {(width/2)-75, height-300,150 ,50 };
+	Rectangle startButton = {(width/2)-75, height-300,150 ,50 };
+	
+	Rectangle second = {10, 10, 200, 200};
 
 	InitWindow(width, height, "YARA");
 	SetTargetFPS(60);
@@ -25,12 +27,25 @@ int main(){
 		ShowCursor();
 		BeginDrawing();
 		ClearBackground(WHITE);
-		DrawRectangleRounded(baseScreen, 0.3, 0, LIGHTGRAY);
+		DrawRectangleRounded(startButton, 0.3, 0, LIGHTGRAY);
 		DrawText("COMECAR", (width/2)-50, height-285, 20, BLACK);
-
 		
-
-
+		if(CheckCollisionPointRec(GetMousePosition(), startButton)){
+			DrawRectangleRounded(startButton, 0.3, 0, {190,190,190,200});
+			if (IsMouseButtonDown(0)){
+			//if (IsMouseButtonPressed(0)){
+				startButtonState = true;
+				//Start here the pages
+			}
+			else{
+			startButtonState = false;
+			}
+		}
+		if (startButtonState){
+			DrawRectangleRounded(second, 0.3,0, RED);
+		}
+		
+				
 
 		EndDrawing();
 
