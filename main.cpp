@@ -14,7 +14,7 @@ int main(){
 	const char image6[] = "/home/daniel/Desktop/path/photo6.png";
 
 
-	Rectangle baseScreen = {50, 50, width-100, height-100};
+	Rectangle baseScreen = {(width/2)-75, height-300,150 ,50 };
 
 	InitWindow(width, height, "YARA");
 	SetTargetFPS(60);
@@ -24,8 +24,14 @@ int main(){
 	while(!WindowShouldClose()){
 		ShowCursor();
 		BeginDrawing();
-		//DrawTexture(background, 0, 0, WHITE);
-		DrawRectangleRounded(baseScreen, 0.1, 10, LIGHTGRAY);
+		ClearBackground(WHITE);
+		DrawRectangleRounded(baseScreen, 0.3, 0, LIGHTGRAY);
+		DrawText("COMECAR", (width/2)-50, height-285, 20, BLACK);
+
+		
+
+
+
 		EndDrawing();
 
 	}
