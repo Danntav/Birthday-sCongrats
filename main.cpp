@@ -1,14 +1,14 @@
 #include <iostream>
 #include <raylib.h>
 
+const int width = 1000;
+const int height = 800;
 
-void screens(int page);
+void screens(int currentPage);
 
 int main(){
 	
 	std::cout << "Initializing programm" << std::endl;
-	const int width = 1000;
-	const int height = 800;
 	const char image1[] = "/home/daniel/Desktop/path/photo1.png";
 	const char image2[] = "/home/daniel/Desktop/path/photo2.png";
 	const char image3[] = "/home/daniel/Desktop/path/photo3.png";
@@ -16,32 +16,46 @@ int main(){
 	const char image5[] = "/home/daniel/Desktop/path/photo5.png";
 	const char image6[] = "/home/daniel/Desktop/path/photo6.png";
 	bool startButtonState = false;
+	int currentPage = 1;
+	int numberOfPages = 5;
 
 	Rectangle startButton = {(width/2)-75, height-300,150 ,50 };
-	
 	Rectangle second = {10, 10, 200, 200};
+	Rectangle nextButton = {width-200,height-300,150,50};
+	Rectangle previousButton = {200, height-300,150,50};
 
 	InitWindow(width, height, "YARA");
 	SetTargetFPS(60);
-
 	Texture2D background = LoadTexture(image1);
 
 	while(!WindowShouldClose()){
 		ShowCursor();
 		BeginDrawing();
-
-
 		 if (startButtonState){
-                        //DrawRectangleRounded(second, 0.3,0, RED);
-                        screens(1);
+			ClearBackground(WHITE);
+		 	screens(currentPage);
+		        DrawRectangleRounded(nextButton, 0.3, 0, LIGHTGRAY);
+			DrawRectangleRounded(previousButton, 0.3, 0, LIGHTGRAY);
+		        if (CheckCollisionPointRec(GetMousePosition(), nextButton) && IsMouseButtonPressed(0)){
+		                currentPage++;
+				if (currentPage >= numberOfPages){
+					currentPage = 1;
+				}
+       			 }
+			if (CheckCollisionPointRec(GetMousePosition(), previousButton) && IsMouseButtonPressed(0)){
+				currentPage--;
+				if(currentPage < 1){
+					currentPage = numberOfPages;
+				}
+			}
+
+
                 }
 
 		else{
 			ClearBackground(WHITE);
              	 	DrawRectangleRounded(startButton, 0.3, 0, LIGHTGRAY);
               		DrawText("COMECAR", (width/2)-50, height-285, 20, BLACK);
-
-
 			if(CheckCollisionPointRec(GetMousePosition(), startButton)){
 				DrawRectangleRounded(startButton, 0.3, 0, {190,190,190,200});
 				if (IsMouseButtonPressed(0)){
@@ -49,21 +63,27 @@ int main(){
 				}
 			}
 		}
-				
-
 		EndDrawing();
-
 	}
 	UnloadTexture(background);
-
 	CloseWindow();
 	return 0;
-
 }
 
 
-void screens(int page){
+void screens(int currentPage){
+	switch(currentPage){
+		case 1:
+			DrawText("Welcome to Page 1", 50, 50, 20, BLACK);
+			break;
+		case 2:
+			DrawText("Thats the second Page", 50, 50, 20, BLACK);
+			break;
+		case 3:
+	                DrawText("Third page goes hard", 50, 50, 20, BLACK);
+	                break;
 
-	ClearBackground(PINK);
+
+	}
 
 }
