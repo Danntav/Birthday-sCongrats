@@ -1,6 +1,9 @@
 #include <iostream>
 #include <raylib.h>
 
+
+void screens(int page);
+
 int main(){
 	
 	std::cout << "Initializing programm" << std::endl;
@@ -26,25 +29,26 @@ int main(){
 	while(!WindowShouldClose()){
 		ShowCursor();
 		BeginDrawing();
-		ClearBackground(WHITE);
-		DrawRectangleRounded(startButton, 0.3, 0, LIGHTGRAY);
-		DrawText("COMECAR", (width/2)-50, height-285, 20, BLACK);
-		
-		if(CheckCollisionPointRec(GetMousePosition(), startButton)){
-			DrawRectangleRounded(startButton, 0.3, 0, {190,190,190,200});
-			if (IsMouseButtonDown(0)){
-			//if (IsMouseButtonPressed(0)){
-				startButtonState = true;
-				//Start here the pages
-			}
-			else{
-			startButtonState = false;
+
+
+		 if (startButtonState){
+                        //DrawRectangleRounded(second, 0.3,0, RED);
+                        screens(1);
+                }
+
+		else{
+			ClearBackground(WHITE);
+             	 	DrawRectangleRounded(startButton, 0.3, 0, LIGHTGRAY);
+              		DrawText("COMECAR", (width/2)-50, height-285, 20, BLACK);
+
+
+			if(CheckCollisionPointRec(GetMousePosition(), startButton)){
+				DrawRectangleRounded(startButton, 0.3, 0, {190,190,190,200});
+				if (IsMouseButtonPressed(0)){
+					startButtonState = true;
+				}
 			}
 		}
-		if (startButtonState){
-			DrawRectangleRounded(second, 0.3,0, RED);
-		}
-		
 				
 
 		EndDrawing();
@@ -54,5 +58,12 @@ int main(){
 
 	CloseWindow();
 	return 0;
+
+}
+
+
+void screens(int page){
+
+	ClearBackground(PINK);
 
 }
