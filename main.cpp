@@ -4,13 +4,13 @@
 const int width = 1000;
 const int height = 800;
 
-void screens(int currentPage);
+void Screens(int currentPage, Texture2D images[]);
 
 int main(){
 	
 	std::cout << "Initializing programm" << std::endl;
 
-	const char backimage[] = "/home/daniel/Desktop/path/background.png";
+	const char backgroundMenu[] = "/home/daniel/Desktop/path/background.png";
 
 	bool startButtonState = false;
 	int currentPage = 1;
@@ -24,16 +24,19 @@ int main(){
 
 	InitWindow(width, height, "YARA");
 	SetTargetFPS(60);
-	Texture2D background = LoadTexture(backimage);
+	Texture2D backgroundMenuImage = LoadTexture(backgroundMenu);
 
-	Texture2D image[numberOfPages] = {
+	Texture2D images[numberOfPages] = {
 		LoadTexture("/home/daniel/Desktop/path/photo1.png"),
 		LoadTexture("/home/daniel/Desktop/path/photo2.png"),
 		LoadTexture("/home/daniel/Desktop/path/photo3.png"),
 		LoadTexture("/home/daniel/Desktop/path/photo4.png"),
-		LoadTexture("/home/daniel/Desktop/path/photo5.png");
-		LoadTexture("/home/daniel/Desktop/path/photo6.png");
-	}
+		LoadTexture("/home/daniel/Desktop/path/photo5.png"),
+		LoadTexture("/home/daniel/Desktop/path/photo6.png"),
+		LoadTexture("/home/daniel/Desktop/path/photo7.png"),
+		LoadTexture("/home/daniel/Desktop/path/photo8.png"),
+		LoadTexture("/home/daniel/Desktop/path/photo9.png"),
+	};
 
 
 	while(!WindowShouldClose()){
@@ -41,7 +44,7 @@ int main(){
 		BeginDrawing();
 		 if (startButtonState){
 			ClearBackground(WHITE);
-		 	screens(currentPage);
+		 	Screens(currentPage-1, images);
 		        DrawRectangleRounded(nextButton, 0.3, 0, LIGHTGRAY);
 			DrawRectangleRounded(previousButton, 0.3, 0, LIGHTGRAY);
 			DrawRectangleRounded(menuButton, 0.3, 0, RED);
@@ -67,7 +70,7 @@ int main(){
                 }
 		else{
 			ClearBackground(WHITE);
-			DrawTexture(background, 0, 0, WHITE);
+			DrawTexture(backgroundMenuImage, 0, 0, WHITE);
              	 	DrawRectangleRounded(startButton, 0.3, 0, LIGHTGRAY);
               		DrawText("COMECAR", (width/2)-50, height-285, 20, BLACK);
 			DrawRectangleRounded(exitButton, 0.3, 0,RED);
@@ -89,39 +92,37 @@ int main(){
 		}
 		EndDrawing();
 	}
-	UnloadTexture(background);
+
+	for (int i = 0; i < numberOfPages; ++i){
+		UnloadTexture(images[i]);
+	}
+	UnloadTexture(backgroundMenuImage);
 	CloseWindow();
 	return 0;
 }
 
 
-void screens(int currentPage){
+void Screens(int currentPage, Texture2D image[]){
+
+	DrawTexture(image[currentPage], 0, 0, WHITE);
 
 
 	switch(currentPage){
 		case 1:
-			DrawTexture(image1, 0, 0, WHITE);
 			DrawText("Welcome to Page 1", 50, 50, 20, BLACK);
 			break;
 		case 2:
-			DrawTexture(image2, 0, 0, WHITE);
 			DrawText("Thats the second Page", 50, 50, 20, BLACK);
 			break;
 		case 3:
-			DrawTexture(image3, 0, 0, WHITE);
 	                DrawText("Third page goes hard", 50, 50, 20, BLACK);
 	                break;
 		case 4:
-			DrawTexture(image4, 0, 0, WHITE);
 			DrawText("Forth Image", 50, 50, 20, BLACK);
 			break;
-
 		case 5:
-			DrawTexture(image5, 0, 0, WHITE);
-
 			break;
 		case 6:
-			DrawTexture(image6, 0, 0, WHITE);
 			break;
 
 
