@@ -5,8 +5,6 @@ const int width = 1000;
 const int height = 800;
 
 void Screens(int currentPage, Texture2D images[], Texture2D background, Texture2D heart);
-void DrawHeart(Vector2 position, float size, Color color);
-
 
 int main(){
 	
@@ -38,8 +36,8 @@ int main(){
 		LoadTexture("/home/daniel/Desktop/path/photo10.png"),
 		LoadTexture("/home/daniel/Desktop/path/photo4.png"),
 		LoadTexture("/home/daniel/Desktop/path/photo5.png"),
-		LoadTexture("/home/daniel/Desktop/path/photo11.png"),
-		LoadTexture("/home/daniel/Desktop/path/photo7.png"),
+		LoadTexture("/home/daniel/Desktop/path/photo12.png"),
+		LoadTexture("/home/daniel/Desktop/path/photo6.png"),
 		LoadTexture("/home/daniel/Desktop/path/photo8.png"),
 		LoadTexture("/home/daniel/Desktop/path/photo9.png"),
 	};
@@ -56,8 +54,6 @@ int main(){
 			DrawText("Menu ", width-90, 60, 15, BLACK);
 			DrawText(" -> ", width-175, height-100, 60, BLACK);
 			DrawText(" <- ", 75, height-100, 60, BLACK);
-
-
 		        if (CheckCollisionPointRec(GetMousePosition(), nextButton)){
 				DrawRectangleRounded(nextButton, 0.3, 0, {190,190,190,200});
                                 if (IsMouseButtonPressed(0)){
@@ -82,6 +78,10 @@ int main(){
 		else{
 			ClearBackground(WHITE);
 			DrawTexture(backgroundMenuImage, 0, 0, WHITE);
+
+			DrawRectangleRounded({(width/2)-200, height-525,400 ,200 }, 0.3, 0, WHITE);
+			DrawText("Feliz Aniversario", (width/2)-175, height-500, 42, BLACK);
+			DrawText("  MEU AMOR!   ", (width/2)-175, height-420, 50, BLACK);
              	 	DrawRectangleRounded(startButton, 0.3, 0, LIGHTGRAY);
               		DrawText("COMECAR", (width/2)-50, height-285, 20, BLACK);
 			DrawRectangleRounded(exitButton, 0.3, 0,RED);
@@ -103,7 +103,6 @@ int main(){
 		}
 		EndDrawing();
 	}
-
 	for (int i = 0; i < numberOfPages; ++i){
 		UnloadTexture(images[i]);
 	}
@@ -129,31 +128,41 @@ void Screens(int currentPage, Texture2D image[], Texture2D background, Texture2D
 
 	switch(currentPage){
 		case 0:
-			DrawText("Welcome to Page 1", 50, 50, 20, BLACK);
+			DrawRectangleRounded({200, height-120, 600, 90}, 0.3, 0, WHITE);
+			DrawText("Dedico esta mensagem para o amor da minha vida", 220, height-80, 23, BLACK);
 			break;
 		case 1:
-			DrawText("Welcome to Page 1", 50, 50, 20, BLACK);
+			DrawRectangleRounded({200, 50, 600, 90}, 0.3, 0, WHITE);
+			DrawText("Esta mulher companheira que está sempre comigo", 215, 80, 23, BLACK);
 			break;
 		case 2:
-			DrawText("Thats the second Page", 50, 50, 20, BLACK);
+			DrawRectangleRounded({200, 50, 600, 90}, 0.3, 0, WHITE);
+			DrawText("Que me ensina a ser um homem melhor a cada dia", 215, 80, 23, BLACK);
 			break;
 		case 3:
-	                DrawText("Third page goes hard", 50, 50, 20, BLACK);
+			DrawRectangleRounded({200, height-120, 600, 90}, 0.3, 0, WHITE);
+	                DrawText("Esta mulher incrível, inteligiente, linda... ", 260, height-80, 23, BLACK);
 	                break;
 		case 4:
-			DrawText("A minha companhia de todos os momentos", 50, 50, 40, BLACK);
+			DrawRectangleRounded({200, height-120, 600, 90}, 0.3, 0, WHITE);
+			DrawText("PERFEITA!", (width/2)-110, height-85, 40, BLACK);
 			break;
 		case 5:
-			DrawText("Fifth Image", 50, 50, 20, BLACK);
+			DrawRectangleRounded({200, 50, 600, 90}, 0.3, 0, WHITE);
+			DrawText("A melhor companhia de todos os momentos", 250, 80, 23, BLACK);
 			break;
 		case 6:
-			DrawText("Sixth Image", 50, 50, 20, BLACK);
+			DrawRectangleRounded({200, 50, 600, 90}, 0.3, 0, WHITE);
+			DrawText("Que transforma momentos simples", 290, 70, 23, BLACK);
+			DrawText("em memórias inesquecíveis", 310, 95, 23, BLACK);
 			break;
 		case 7:
-			DrawText("Seventh Image", 50, 50, 20, BLACK);
+			DrawRectangleRounded({200, height-120, 600, 90}, 0.3, 0, WHITE);
+			DrawText("Agradeço por cada sorriso e por cada abraço", 225, height-80, 23, BLACK);
                         break;
 		case 8:
-			DrawText("Eigth Image", 50, 50, 20, BLACK);
+			DrawRectangleRounded({200, height-120, 600, 90}, 0.3, 0, WHITE);
+			DrawText("Te amo eternamente", (width/2)-110, height-80, 23, BLACK);
                         break;
 		case 9:
 			ClearBackground(WHITE);
@@ -176,5 +185,3 @@ void Screens(int currentPage, Texture2D image[], Texture2D background, Texture2D
 			break;
 	}		
 }
-
-
