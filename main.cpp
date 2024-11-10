@@ -1,11 +1,12 @@
 #include <iostream>
 #include <raylib.h>
-#include <random>
 
 const int width = 1000;
 const int height = 800;
 
-void Screens(int currentPage, Texture2D images[], Texture2D background);
+void Screens(int currentPage, Texture2D images[], Texture2D background, Texture2D heart);
+void DrawHeart(Vector2 position, float size, Color color);
+
 
 int main(){
 	
@@ -28,7 +29,9 @@ int main(){
 	SetTargetFPS(60);
 	Texture2D backgroundMenuImage = LoadTexture(backgroundMenu);
 	Texture2D backgroundSlideImage = LoadTexture(backgroundSlide);
-	
+
+	Texture2D heart = LoadTexture("/home/daniel/Desktop/path/heart1.png");
+
 	Texture2D images[numberOfPages] = {
 		LoadTexture("/home/daniel/Desktop/path/photo1.png"),
 		LoadTexture("/home/daniel/Desktop/path/photo2.png"),
@@ -46,7 +49,7 @@ int main(){
 		BeginDrawing();
 		 if (startButtonState){
   			ClearBackground(WHITE);
-		 	Screens(currentPage-1, images, backgroundSlideImage);
+		 	Screens(currentPage-1, images, backgroundSlideImage, heart);
 		        DrawRectangleRounded(nextButton, 0.3, 0, LIGHTGRAY);
 			DrawRectangleRounded(previousButton, 0.3, 0, LIGHTGRAY);
 			DrawRectangleRounded(menuButton, 0.3, 0, RED);
@@ -104,14 +107,15 @@ int main(){
 	for (int i = 0; i < numberOfPages; ++i){
 		UnloadTexture(images[i]);
 	}
+	UnloadTexture(heart);
 	UnloadTexture(backgroundMenuImage);
-	UnloadTexture(backgroundMenuSlide);
+	UnloadTexture(backgroundSlideImage);
 	CloseWindow();
 	return 0;
 }
 
 
-void Screens(int currentPage, Texture2D image[], Texture2D background){
+void Screens(int currentPage, Texture2D image[], Texture2D background, Texture2D heart){
 	
 	float scaleX = static_cast<float>(width) / image[currentPage].width;
 	float scaleY = static_cast<float>(height) / image[currentPage].height;
@@ -125,6 +129,7 @@ void Screens(int currentPage, Texture2D image[], Texture2D background){
 
 	switch(currentPage){
 		case 0:
+			DrawText("Welcome to Page 1", 50, 50, 20, BLACK);
 			break;
 		case 1:
 			DrawText("Welcome to Page 1", 50, 50, 20, BLACK);
@@ -136,7 +141,7 @@ void Screens(int currentPage, Texture2D image[], Texture2D background){
 	                DrawText("Third page goes hard", 50, 50, 20, BLACK);
 	                break;
 		case 4:
-			DrawText("Forth Image", 50, 50, 20, BLACK);
+			DrawText("A minha companhia de todos os momentos", 50, 50, 40, BLACK);
 			break;
 		case 5:
 			DrawText("Fifth Image", 50, 50, 20, BLACK);
@@ -151,16 +156,18 @@ void Screens(int currentPage, Texture2D image[], Texture2D background){
 			DrawText("Eigth Image", 50, 50, 20, BLACK);
                         break;
 		case 9:
-			static Rectangle loveButton = {(width / 2) - 100, height / 2, 200, 50};
-		        static Rectangle dontLoveButton = {width / 2 - 100, height / 2 + 80, 200, 50};
+			ClearBackground(WHITE);
+			static Rectangle loveButton = {(width/2)-100, (height/2)+80, 200, 50};
+		        static Rectangle dontLoveButton = {width/2-100, height/2+160, 200, 50};
 			
 		        DrawRectangleRounded(loveButton, 0.3, 0, LIGHTGRAY);
-		        DrawText("I love you too", loveButton.x + 30, loveButton.y + 15, 20, BLACK);
+		        DrawText("    Te amo", loveButton.x + 30, loveButton.y + 15, 20, BLACK);
 		        DrawRectangleRounded(dontLoveButton, 0.3, 0, LIGHTGRAY);
-		        DrawText("Don't love you", dontLoveButton.x + 20, dontLoveButton.y + 15, 20, BLACK);
+		        DrawText("   Nao te amo", dontLoveButton.x + 20, dontLoveButton.y + 15, 20, BLACK);
 		        if (CheckCollisionPointRec(GetMousePosition(), loveButton)){
 				DrawRectangleRounded(loveButton,0.3,0, {190,190,190,200});
-				DrawText("Te amo mais, amor", 50, 50, 60, BLACK);
+				DrawText("Te amo mais, amor", 250, 200, 60, BLACK);
+				DrawTextureEx(heart,{425,300} , 0.0f, 0.1, WHITE);
 			}
 			if (CheckCollisionPointRec(GetMousePosition(), dontLoveButton)) {
 		                dontLoveButton.x = GetRandomValue(50, width - 250);
@@ -169,3 +176,5 @@ void Screens(int currentPage, Texture2D image[], Texture2D background){
 			break;
 	}		
 }
+
+
