@@ -1,5 +1,6 @@
 #include <iostream>
 #include <raylib.h>
+#include <random>
 
 const int width = 1000;
 const int height = 800;
@@ -16,7 +17,7 @@ int main(){
 	bool startButtonState = false;
 	int currentPage = 1;
 	int numberOfPages = 10;
-
+	
 	Rectangle startButton = {(width/2)-75, height-300,150 ,50 };
 	Rectangle nextButton = {width-200,height-100,150,50};
 	Rectangle previousButton = {50, height-100,150,50};
@@ -44,7 +45,7 @@ int main(){
 		ShowCursor();
 		BeginDrawing();
 		 if (startButtonState){
-			ClearBackground(WHITE);
+  			ClearBackground(WHITE);
 		 	Screens(currentPage-1, images, backgroundSlideImage);
 		        DrawRectangleRounded(nextButton, 0.3, 0, LIGHTGRAY);
 			DrawRectangleRounded(previousButton, 0.3, 0, LIGHTGRAY);
@@ -52,6 +53,7 @@ int main(){
 			DrawText("Menu ", width-90, 60, 15, BLACK);
 			DrawText(" -> ", width-175, height-100, 60, BLACK);
 			DrawText(" <- ", 75, height-100, 60, BLACK);
+
 
 		        if (CheckCollisionPointRec(GetMousePosition(), nextButton)){
 				DrawRectangleRounded(nextButton, 0.3, 0, {190,190,190,200});
@@ -103,6 +105,7 @@ int main(){
 		UnloadTexture(images[i]);
 	}
 	UnloadTexture(backgroundMenuImage);
+	UnloadTexture(backgroundMenuSlide);
 	CloseWindow();
 	return 0;
 }
@@ -117,9 +120,7 @@ void Screens(int currentPage, Texture2D image[], Texture2D background){
 	float posX = (width - image[currentPage].width * scale) / 2;
 	float posY = (height - image[currentPage].height * scale) / 2;
 
-
 	DrawTextureEx(background,{0,0}, 0.0f,0.7 ,WHITE);
-
 	DrawTextureEx(image[currentPage], {posX, posY}, 0.0f, scale, WHITE);
 
 	switch(currentPage){
@@ -150,10 +151,21 @@ void Screens(int currentPage, Texture2D image[], Texture2D background){
 			DrawText("Eigth Image", 50, 50, 20, BLACK);
                         break;
 		case 9:
-			DrawText("Nineth Image", 50, 50, 20, BLACK);
-                        break;
-		case 10:
-			DrawText("Tenth Image", 50, 50, 20, BLACK);
+			static Rectangle loveButton = {(width / 2) - 100, height / 2, 200, 50};
+		        static Rectangle dontLoveButton = {width / 2 - 100, height / 2 + 80, 200, 50};
+			
+		        DrawRectangleRounded(loveButton, 0.3, 0, LIGHTGRAY);
+		        DrawText("I love you too", loveButton.x + 30, loveButton.y + 15, 20, BLACK);
+		        DrawRectangleRounded(dontLoveButton, 0.3, 0, LIGHTGRAY);
+		        DrawText("Don't love you", dontLoveButton.x + 20, dontLoveButton.y + 15, 20, BLACK);
+		        if (CheckCollisionPointRec(GetMousePosition(), loveButton)){
+				DrawRectangleRounded(loveButton,0.3,0, {190,190,190,200});
+				DrawText("Te amo mais, amor", 50, 50, 60, BLACK);
+			}
+			if (CheckCollisionPointRec(GetMousePosition(), dontLoveButton)) {
+		                dontLoveButton.x = GetRandomValue(50, width - 250);
+		                dontLoveButton.y = GetRandomValue(100, height - 150);
+			}
 			break;
-	}
+	}		
 }
