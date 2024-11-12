@@ -10,13 +10,13 @@ int main(){
 	
 	std::cout << "Initializing programm" << std::endl;
 
-	const char backgroundMenu[] = "/home/daniel/Desktop/path/backgroundMenu.png";
-	const char backgroundSlide[] = "/home/daniel/Desktop/path/backgroundSlide.png";
+	const char backgroundMenu[] = "backgroundMenu.png";
+	const char backgroundSlide[] = "backgroundSlide.png";
 
 	bool startButtonState = false;
 	int currentPage = 1;
 	int numberOfPages = 10;
-	
+
 	Rectangle startButton = {(width/2)-75, height-300,150 ,50 };
 	Rectangle nextButton = {width-200,height-100,150,50};
 	Rectangle previousButton = {50, height-100,150,50};
@@ -28,18 +28,18 @@ int main(){
 	Texture2D backgroundMenuImage = LoadTexture(backgroundMenu);
 	Texture2D backgroundSlideImage = LoadTexture(backgroundSlide);
 
-	Texture2D heart = LoadTexture("/home/daniel/Desktop/path/heart1.png");
+	Texture2D heart = LoadTexture("heart1.png");
 
 	Texture2D images[numberOfPages] = {
-		LoadTexture("/home/daniel/Desktop/path/photo1.png"),
-		LoadTexture("/home/daniel/Desktop/path/photo2.png"),
-		LoadTexture("/home/daniel/Desktop/path/photo10.png"),
-		LoadTexture("/home/daniel/Desktop/path/photo4.png"),
-		LoadTexture("/home/daniel/Desktop/path/photo5.png"),
-		LoadTexture("/home/daniel/Desktop/path/photo12.png"),
-		LoadTexture("/home/daniel/Desktop/path/photo6.png"),
-		LoadTexture("/home/daniel/Desktop/path/photo8.png"),
-		LoadTexture("/home/daniel/Desktop/path/photo9.png"),
+		LoadTexture("photo1.png"),
+		LoadTexture("photo2.png"),
+		LoadTexture("photo10.png"),
+		LoadTexture("photo4.png"),
+		LoadTexture("photo5.png"),
+		LoadTexture("photo12.png"),
+		LoadTexture("photo6.png"),
+		LoadTexture("photo8.png"),
+		LoadTexture("photo9.png"),
 	};
 
 	while(!WindowShouldClose()){
@@ -48,7 +48,7 @@ int main(){
 		 if (startButtonState){
   			ClearBackground(WHITE);
 		 	Screens(currentPage-1, images, backgroundSlideImage, heart);
-		        DrawRectangleRounded(nextButton, 0.3, 0, LIGHTGRAY);
+		    DrawRectangleRounded(nextButton, 0.3, 0, LIGHTGRAY);
 			DrawRectangleRounded(previousButton, 0.3, 0, LIGHTGRAY);
 			DrawRectangleRounded(menuButton, 0.3, 0, RED);
 			DrawText("Menu ", width-90, 60, 15, BLACK);
@@ -82,11 +82,10 @@ int main(){
 			DrawRectangleRounded({(width/2)-200, height-525,400 ,200 }, 0.3, 0, WHITE);
 			DrawText("Feliz Aniversario", (width/2)-175, height-500, 42, BLACK);
 			DrawText("  MEU AMOR!   ", (width/2)-175, height-420, 50, BLACK);
-             	 	DrawRectangleRounded(startButton, 0.3, 0, LIGHTGRAY);
-              		DrawText("COMECAR", (width/2)-50, height-285, 20, BLACK);
+            DrawRectangleRounded(startButton, 0.3, 0, LIGHTGRAY);
+            DrawText("COMECAR", (width/2)-50, height-285, 20, BLACK);
 			DrawRectangleRounded(exitButton, 0.3, 0,RED);
-                        DrawText("SAIR", (width/2)-25, height-225, 20, BLACK);
-
+            DrawText("SAIR", (width/2)-25, height-225, 20, BLACK);
 
 			if(CheckCollisionPointRec(GetMousePosition(), startButton)){
 				DrawRectangleRounded(startButton, 0.3, 0, {190,190,190,200});
@@ -141,8 +140,8 @@ void Screens(int currentPage, Texture2D image[], Texture2D background, Texture2D
 			break;
 		case 3:
 			DrawRectangleRounded({200, height-120, 600, 90}, 0.3, 0, WHITE);
-	                DrawText("Esta mulher incrível, inteligiente, linda... ", 260, height-80, 23, BLACK);
-	                break;
+	        DrawText("Esta mulher incrível, inteligiente, linda... ", 260, height-80, 23, BLACK);
+	        break;
 		case 4:
 			DrawRectangleRounded({200, height-120, 600, 90}, 0.3, 0, WHITE);
 			DrawText("PERFEITA!", (width/2)-110, height-85, 40, BLACK);
@@ -185,3 +184,4 @@ void Screens(int currentPage, Texture2D image[], Texture2D background, Texture2D
 			break;
 	}		
 }
+
