@@ -1,6 +1,7 @@
 #include <iostream>
 #include <raylib.h>
 
+//Set screen dimensions
 const int width = 1000;
 const int height = 800;
 
@@ -16,13 +17,15 @@ int main(){
 	bool startButtonState = false;
 	int currentPage = 1;
 	int numberOfPages = 10;
-
+	
+	//Configuring all buttons types
 	Rectangle startButton = {(width/2)-75, height-300,150 ,50 };
 	Rectangle nextButton = {width-200,height-100,150,50};
 	Rectangle previousButton = {50, height-100,150,50};
 	Rectangle menuButton = {width-100, 50, 60, 30};
 	Rectangle exitButton = {(width/2)-75, height-240,150 ,50 };
-
+	
+	//Initializing program window and loading images
 	InitWindow(width, height, "YARA");
 	SetTargetFPS(60);
 	Texture2D backgroundMenuImage = LoadTexture(backgroundMenu);
@@ -45,15 +48,17 @@ int main(){
 	while(!WindowShouldClose()){
 		ShowCursor();
 		BeginDrawing();
-		 if (startButtonState){
+		//Configuring the slide pages
+		if (startButtonState){
   			ClearBackground(WHITE);
 		 	Screens(currentPage-1, images, backgroundSlideImage, heart);
-		    DrawRectangleRounded(nextButton, 0.3, 0, LIGHTGRAY);
+		        DrawRectangleRounded(nextButton, 0.3, 0, LIGHTGRAY);
 			DrawRectangleRounded(previousButton, 0.3, 0, LIGHTGRAY);
 			DrawRectangleRounded(menuButton, 0.3, 0, RED);
 			DrawText("Menu ", width-90, 60, 15, BLACK);
 			DrawText(" -> ", width-175, height-100, 60, BLACK);
 			DrawText(" <- ", 75, height-100, 60, BLACK);
+			//Incrementing pages
 		        if (CheckCollisionPointRec(GetMousePosition(), nextButton)){
 				DrawRectangleRounded(nextButton, 0.3, 0, {190,190,190,200});
                                 if (IsMouseButtonPressed(0)){
@@ -61,7 +66,8 @@ int main(){
 					if (currentPage > numberOfPages){
 						currentPage = 1;
 				}	}
-       			 }
+       			}
+			//Decresing pages
 			if (CheckCollisionPointRec(GetMousePosition(), previousButton)){
 				DrawRectangleRounded(previousButton, 0.3, 0, {190,190,190,200});
 				if (IsMouseButtonPressed(0)){
@@ -71,22 +77,24 @@ int main(){
 					}
 				}
 			}
+			//home button
 			if (CheckCollisionPointRec(GetMousePosition(), menuButton) && IsMouseButtonPressed(0)){
 				startButtonState = false;
 			}
                 }
+		//Configuring menu page
 		else{
 			ClearBackground(WHITE);
 			DrawTexture(backgroundMenuImage, 0, 0, WHITE);
-
 			DrawRectangleRounded({(width/2)-200, height-525,400 ,200 }, 0.3, 0, WHITE);
 			DrawText("Feliz Aniversario", (width/2)-175, height-500, 42, BLACK);
 			DrawText("  MEU AMOR!   ", (width/2)-175, height-420, 50, BLACK);
-            DrawRectangleRounded(startButton, 0.3, 0, LIGHTGRAY);
-            DrawText("COMECAR", (width/2)-50, height-285, 20, BLACK);
+	                DrawRectangleRounded(startButton, 0.3, 0, LIGHTGRAY);
+        	        DrawText("COMECAR", (width/2)-50, height-285, 20, BLACK);
 			DrawRectangleRounded(exitButton, 0.3, 0,RED);
-            DrawText("SAIR", (width/2)-25, height-225, 20, BLACK);
-
+            	        DrawText("SAIR", (width/2)-25, height-225, 20, BLACK);
+			
+			//Checking menu buttons
 			if(CheckCollisionPointRec(GetMousePosition(), startButton)){
 				DrawRectangleRounded(startButton, 0.3, 0, {190,190,190,200});
 				if (IsMouseButtonPressed(0)){
@@ -102,6 +110,7 @@ int main(){
 		}
 		EndDrawing();
 	}
+	//Unloading images and Closing Window
 	for (int i = 0; i < numberOfPages; ++i){
 		UnloadTexture(images[i]);
 	}
@@ -112,7 +121,7 @@ int main(){
 	return 0;
 }
 
-
+//This function loads the images and scales them for each page
 void Screens(int currentPage, Texture2D image[], Texture2D background, Texture2D heart){
 	
 	float scaleX = static_cast<float>(width) / image[currentPage].width;
@@ -125,6 +134,7 @@ void Screens(int currentPage, Texture2D image[], Texture2D background, Texture2D
 	DrawTextureEx(background,{0,0}, 0.0f,0.7 ,WHITE);
 	DrawTextureEx(image[currentPage], {posX, posY}, 0.0f, scale, WHITE);
 
+	//Setting each page distinctly
 	switch(currentPage){
 		case 0:
 			DrawRectangleRounded({200, height-120, 600, 90}, 0.3, 0, WHITE);
@@ -164,6 +174,7 @@ void Screens(int currentPage, Texture2D image[], Texture2D background, Texture2D
 			DrawText("Te amo eternamente", (width/2)-110, height-80, 23, BLACK);
                         break;
 		case 9:
+			//Set small animated button on the last page
 			ClearBackground(WHITE);
 			static Rectangle loveButton = {(width/2)-100, (height/2)+80, 200, 50};
 		        static Rectangle dontLoveButton = {width/2-100, height/2+160, 200, 50};
